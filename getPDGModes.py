@@ -10,14 +10,25 @@ from bs4 import BeautifulSoup
 particleNames = {
 
 r'{{\mathit X}}' : 'X',
+r'{{\mathit X}_{{c}}}' : 'Xc',
+r'{{\mathit X}_{{b}}}' : 'Xb',
 
 r'{{\mathit \ell}^{+}}' : 'lepton+',
 r'{{\mathit \ell}^{-}}' : 'lepton-',
+
+r'{{\mathit e}^{+}}' : 'e+',
+r'{{\mathit e}^{-}}' : 'e-',
+
+r'{{\mathit \mu}^{+}}' : 'mu+',
+r'{{\mathit \mu}^{-}}' : 'mu-',
 
 r'{{\mathit \tau}^{+}}' : 'tau+',
 r'{{\mathit \tau}^{-}}' : 'tau+',
 
 r'{{\mathit \nu}_{{{{\mathit \ell}}}}}' : 'nu_lepton',
+r'{{\mathit \nu}_{{\tau}}}' : 'nu_tau',
+r'{{\mathit \nu}_{{e}}}' : 'nu_e',
+r'{{\mathit \nu}_{{\mu}}}' : 'nu_mu',
 
 r'{{\mathit \pi}^{+}}' : 'pi+',
 r'{{\mathit \pi}^{-}}' : 'pi-',
@@ -25,14 +36,39 @@ r'{{\mathit \pi}^{-}}' : 'pi-',
 r'{{\mathit K}^{+}}' : 'K+',
 r'{{\mathit K}^{-}}' : 'K-',
 
+r'{{\mathit D}}' : 'D',
+
+r'{{\mathit D}}^{0}}' : 'D0',
+r'{{\overline{\mathit D}}^{0}}' : 'anti-D0',
+
+r'{{\mathit D}^{+}}' : 'D+',
+r'{{\mathit D}^{-}}' : 'D-',
+
+r'{{\mathit D}^{*}{(2010)}^{+}}' : 'D*(2010)+',
+r'{{\mathit D}^{*}{(2010)}^{-}}' : 'D*(2010)-',
+
 r'{{\mathit D}_{{2}}^{*}{(2460)}^{+}}' : 'D_2*(2460)+',
 r'{{\mathit D}_{{2}}^{*}{(2460)}^{-}}' : 'D_2*(2460)-',
 
 r'{{\mathit D}^{*0}}' : 'D*0',
 r'{{\overline{\mathit D}}^{*0}}' : 'anti-D*0',
 
+r'{{\overline{\mathit D}}^{(*)}}' : 'D*',
+
 r'{{\mathit D}^{*+}}' : 'D*+',
 r'{{\mathit D}^{*-}}' : 'D*-',
+
+r'{{\mathit D}_{{0}}^{*}{(2300)}^{+}}' : 'D_0*(2300)+',
+r'{{\mathit D}_{{0}}^{*}{(2300)}^{-}}' : 'D_0*(2300)-',
+
+r'{{\mathit \rho}^{+}}' : 'rho+',
+r'{{\mathit \rho}^{-}}' : 'rho-',
+
+r"{{\mathit D}_{{1}}^{\,'}{(2430)}^{-}}" : "D_1'(2430)-",
+r"{{\mathit D}_{{1}}^{\,'}{(2430)}^{+}}" : "D_1'(2430)+",
+
+r"{{\mathit D}_{{1}}{(2420)}^{-}}" : "D_1(2420)-",
+r"{{\mathit D}_{{1}}{(2420)}^{+}}" : "D_1(2420)+",
 
 }
 
@@ -127,11 +163,11 @@ def getRawModes(fileName):
                 # print('Contents :', modes)
                 print('Contents :', modesLatex)
 
-                # Just do it for those that have a single entry here
-                # to avoid having to worry about the sub-decays for now
-                if len(modesLatex) == 1:
+                # Just do it for the first entry for now,
+                # to avoid having to worry about the sub-decays
+                if len(modesLatex) > 0:
                   s = replace_particles(particleRegex, particleNames, str(modesLatex[0]))
-                  print('Parsed contents', s)
+                  print('Parsed contents : ', s)
 
                 print('BF : ', scripts[-1])
                 print('')
