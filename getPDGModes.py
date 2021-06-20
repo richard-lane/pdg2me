@@ -4,6 +4,8 @@ from tqdm import tqdm
 
 from bs4 import BeautifulSoup
 
+from pprint import pprint
+
 # Regex to match arbitrary excited resonances?
 # Function to build antiparticle from particle (+ vice versa?)
 
@@ -30,11 +32,23 @@ r'{{\mathit \nu}_{{\tau}}}' : 'nu_tau',
 r'{{\mathit \nu}_{{e}}}' : 'nu_e',
 r'{{\mathit \nu}_{{\mu}}}' : 'nu_mu',
 
+r'{{\mathit \gamma}}' : 'gamma',
+
 r'{{\mathit \pi}^{+}}' : 'pi+',
 r'{{\mathit \pi}^{-}}' : 'pi-',
+r'{{\mathit \pi}^{0}}' : 'pi0',
 
 r'{{\mathit K}^{+}}' : 'K+',
 r'{{\mathit K}^{-}}' : 'K-',
+
+r'{{\mathit \eta}}' : 'eta',
+r"{{\mathit \eta}^{\,'}}" : "eta'",
+
+r'{{\mathit f}_{{0}}{(980)}}' : 'f_0(980)',
+
+r'{{\mathit \omega}}' : 'omega',
+
+r'{{\mathit \phi}}' : 'phi',
 
 r'{{\mathit D}}' : 'D',
 
@@ -61,6 +75,8 @@ r'{{\mathit D}^{*-}}' : 'D*-',
 r'{{\mathit D}_{{0}}^{*}{(2300)}^{+}}' : 'D_0*(2300)+',
 r'{{\mathit D}_{{0}}^{*}{(2300)}^{-}}' : 'D_0*(2300)-',
 
+r'{{\mathit \rho}}' : 'rho',
+r'{{\mathit \rho}^{0}}' : 'rho0',
 r'{{\mathit \rho}^{+}}' : 'rho+',
 r'{{\mathit \rho}^{-}}' : 'rho-',
 
@@ -113,6 +129,7 @@ def getRawModes(fileName):
     f = open(fileName, 'r')
 
     soup = BeautifulSoup(f, 'html.parser')
+    decays = []
 
     for i, link in enumerate(soup.find_all("tr")):
 
@@ -168,14 +185,16 @@ def getRawModes(fileName):
                 if len(modesLatex) > 0:
                   s = replace_particles(particleRegex, particleNames, str(modesLatex[0]))
                   print('Parsed contents : ', s)
+                  if '{' not in s : decays.append(s)
 
                 print('BF : ', scripts[-1])
                 print('')
-
+        pprint(decays)
         return
 
         print('')
 
 if __name__ == '__main__':
 
-    getRawModes('testInputs/testPDG.html')
+    # getRawModes('testInputs/testPDGLight.html')
+    getRawModes('testInputs/testPDGPhi.html')
